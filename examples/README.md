@@ -37,9 +37,11 @@ module "mssql-server" {
 
 This module uses the tool slqcmd as a local provisioner to connect and inject the SQL initialization. To enable this feature set the argument `initialize_sql_script_execution = true` and use `sqldb_init_script_file` argument to provide the path to SQL script.
 
-> #### Note: To run this utility from your desktop, to create SQL database schema using SQL script requires firewall rule. Allow access to Azure services can be enabled by setting `start_ip_address` and `end_ip_address` to `0.0.0.0` and add your machine public IP to SQL firewall rules to run this feature else this will fail to run and exit the terraform plan.
+> #### *Note: To run this utility from your desktop, to create SQL database schema using SQL script requires firewall rule. Allow access to Azure services can be enabled by setting `start_ip_address` and `end_ip_address` to `0.0.0.0` and add your machine public IP to SQL firewall rules to run this feature else this will fail to run and exit the terraform plan.*
 
-> #### Note: Enabling `extended_auditing_policy` and `threat_detection_policy` features on SQL servers and database going to create a storage account to keep all audit logs. Log retention policy to be configured to keep the size within limits for this storage account. Note that this module creates resources that can cost money. 
+> #### *Note: Enabling `extended_auditing_policy` and `threat_detection_policy` features on SQL servers and database going to create a storage account to keep all audit logs. Log retention policy to be configured to keep the size within limits for this storage account. Note that this module creates resources that can cost money.* 
+
+> #### *Note: If you prefer private endpoints feature, firewall rules are not relevant. However, this module can support both the Public and Private availability of the Database. Disable the firewall rules, in case you want to create the database using private endpoints only.*
 
 ## Module Usage
 
@@ -72,9 +74,7 @@ module "mssql-server" {
 
 # AD administrator for an Azure SQL server
   enable_sql_ad_admin             = true
-  ad_admin_login_name             = "hothead01"
-  ad_admin_tenant_id              = "2b25609c-e6e8-4f24-b7be-aa9fdef90a2d"
-  ad_admin_object_id              = "18821d6f-adbe-4d4d-97ca-71a56f70e392"  
+  ad_admin_login_name             = "firstname.lastname@tieto.com"
 
 # Firewall Rules to allow azure and external clients
   enable_firewall_rules           = true
@@ -128,9 +128,7 @@ module "mssql-server" {
 
 # AD administrator for an Azure SQL server
   enable_sql_ad_admin             = true
-  ad_admin_login_name             = "hothead01"
-  ad_admin_tenant_id              = "2b25609c-e6e8-4f24-b7be-aa9fdef90a2d"
-  ad_admin_object_id              = "18821d6f-adbe-4d4d-97ca-71a56f70e392"  
+  ad_admin_login_name             = "firstname.lastname@tieto.com"
 
 # Private Endpoint for Sql servers
   enable_private_endpoint         = true
@@ -177,9 +175,7 @@ module "mssql-server" {
 
 # AD administrator for an Azure SQL server
   enable_sql_ad_admin             = true
-  ad_admin_login_name             = "hothead01"
-  ad_admin_tenant_id              = "2b25609c-e6e8-4f24-b7be-aa9fdef90a2d"
-  ad_admin_object_id              = "18821d6f-adbe-4d4d-97ca-71a56f70e392"  
+  ad_admin_login_name             = "firstname.lastname@tieto.com"
 
 # Firewall Rules to allow azure and external clients
   enable_firewall_rules           = true
@@ -237,9 +233,7 @@ module "mssql-server" {
 
 # AD administrator for an Azure SQL server
   enable_sql_ad_admin             = true
-  ad_admin_login_name             = "hothead01"
-  ad_admin_tenant_id              = "2b25609c-e6e8-4f24-b7be-aa9fdef90a2d"
-  ad_admin_object_id              = "18821d6f-adbe-4d4d-97ca-71a56f70e392"  
+  ad_admin_login_name             = "firstname.lastname@tieto.com"
 
 # Sql failover group
   enable_failover_group           = true

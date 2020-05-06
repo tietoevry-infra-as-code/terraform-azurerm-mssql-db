@@ -133,13 +133,15 @@ resource "null_resource" "create_sql" {
 # Adding AD Admin to SQL Server - Secondary server depend on Failover Group - Default is "false"
 #-----------------------------------------------------------------------------------------------
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_sql_active_directory_administrator" "aduser1" {
     count                   = var.enable_sql_ad_admin ? 1 : 0
     server_name             = azurerm_sql_server.primary.name
     resource_group_name     = local.resource_group_name
     login                   = var.ad_admin_login_name
-    tenant_id               = var.ad_admin_tenant_id
-    object_id               = var.ad_admin_object_id 
+    tenant_id               = data.azurerm_client_config.current.tenant_id
+    object_id               = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_sql_active_directory_administrator" "aduser2" {
@@ -147,8 +149,8 @@ resource "azurerm_sql_active_directory_administrator" "aduser2" {
     server_name             = azurerm_sql_server.secondary.0.name
     resource_group_name     = local.resource_group_name
     login                   = var.ad_admin_login_name
-    tenant_id               = var.ad_admin_tenant_id
-    object_id               = var.ad_admin_object_id 
+    tenant_id               = data.azurerm_client_config.current.tenant_id
+    object_id               = data.azurerm_client_config.current.object_id
 }
 
 #---------------------------------------------------------

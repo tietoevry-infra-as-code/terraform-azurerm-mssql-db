@@ -60,14 +60,7 @@ variable "enable_sql_ad_admin" {
 
 variable "ad_admin_login_name" {
     description = "The login name of the principal to set as the server administrator"
-}
-
-variable "ad_admin_tenant_id" {
-    description = "The name of the Admin user Tenant ID"
-}
-
-variable "ad_admin_object_id" {
-    description = "The object ID of the principal to set as the server administrator" 
+    default     = ""
 }
 
 variable "enable_firewall_rules" {

@@ -20,7 +20,7 @@ You can create a single database in the provisioned or serverless compute tier. 
 * [Private DNS zone for privatelink A records](https://www.terraform.io/docs/providers/azurerm/r/private_dns_zone.html)
 * [SQL Script execution to create Database](https://docs.microsoft.com/en-us/sql/ssms/scripting/sqlcmd-run-transact-sql-script-files?view=sql-server-ver15)
 
-> #### *If you prefer private endpoints feature, firewall rules are not relevant. However, this module can support both the Public and Private availability of the Database. Disable the firewall rules, in case you want to create the database using private endpoints only.*
+> #### *Note: If you prefer private endpoints feature, firewall rules are not relevant. However, this module can support both the Public and Private availability of the Database. Disable the firewall rules, in case you want to create the database using private endpoints only.*
 
 ## Module Usage
 
@@ -53,9 +53,7 @@ module "mssql-server" {
 
 # AD administrator for an Azure SQL server
   enable_sql_ad_admin             = true
-  ad_admin_login_name             = "hothead01"
-  ad_admin_tenant_id              = "2b25609c-e6e8-4f24-b7be-aa9fdef90a2d"
-  ad_admin_object_id              = "18821d6f-adbe-4d4d-97ca-71a56f70e392"  
+  ad_admin_login_name             = "firstname.lastname@tieto.com"
 
 # Private Endpoint for Sql servers
   enable_private_endpoint         = true
@@ -102,9 +100,7 @@ module "mssql-server" {
 
 # AD administrator for an Azure SQL server
   enable_sql_ad_admin             = true
-  ad_admin_login_name             = "hothead01"
-  ad_admin_tenant_id              = "2b25609c-e6e8-4f24-b7be-aa9fdef90a2d"
-  ad_admin_object_id              = "18821d6f-adbe-4d4d-97ca-71a56f70e392"  
+  ad_admin_login_name             = "firstname.lastname@tieto.com"
 
 # Firewall Rules to allow azure and external clients
   enable_firewall_rules           = true
@@ -170,9 +166,9 @@ By default, this feature not enabled on this module. To enable the threat detect
 
 ## Adding Active Directory Administrator to SQL Database
 
-Azure Active Directory authentication is a mechanism of connecting to Microsoft Azure SQL Database by using identities in Azure Active Directory (Azure AD). With Azure Active Directory authentication you can centrally manage the identities of database users and other Microsoft services in one central location.
+Azure Active Directory authentication is a mechanism of connecting to Microsoft Azure SQL Database by using identities in Azure Active Directory (Azure AD). This module adds the provided Azure Active Directory user/group to SQL Database as an administrator so that the user can login to this database with Azure AD authentication.   
 
-By default, this feature not enabled on this module. To add the Active Directory Administrator to SQL database, set the argument `enable_sql_ad_admin = true`. This is feature requires corresponding AD user login name (`ad_admin_login_name`), login user AD tenant id (`ad_admin_tenant_id`), and the object id of that user (`ad_admin_object_id`).
+By default, this feature not enabled on this module. To add the Active Directory Administrator to SQL database, set the argument `enable_sql_ad_admin = true` and provide valid Azure AD user login name (`ad_admin_login_name`). 
 
 ## Configuring the Azure SQL Database Firewall
 
@@ -257,8 +253,6 @@ Name | Description | Type | Default
 `email_addresses_for_alerts`|Account administrators email for alerts|`list(string)`|`""`
 `enable_sql_ad_admin`|Set a user or group as the AD administrator for an Azure SQL server|string|`"false"`
 `ad_admin_login_name`|The login name of the principal to set as the server administrator|string|`""`
-`ad_admin_tenant_id`|The ID of the principal to set as the server administrator|string|`""`
-`ad_admin_object_id`|The Azure Tenant ID|string|`""`
 `enable_firewall_rules`|Manages a Firewall Rule for a MySQL Server|string|`"false"`
 `firewall_rules`| list of firewall rules to add SQL servers| `list(string)`| `""`
 `enable_failover_group`|Create a failover group of databases on a collection of Azure SQL servers|string| `"false"`
@@ -294,6 +288,10 @@ Name | Description
 `primary_sql_server_private_endpoint_fqdn`|Priamary SQL server private endpoint IPv4 Addresses
 `secondary_sql_server_private_endpoint_ip`|Secondary SQL server private endpoint IPv4 Addresses
 `secondary_sql_server_private_endpoint_fqdn`|Secondary SQL server private endpoint IPv4 Addresses
+
+## Resource Graph
+
+![](graph.png)
 
 ## Authors
 

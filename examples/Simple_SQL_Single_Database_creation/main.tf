@@ -1,6 +1,6 @@
 module "mssql-server" {
   source = "github.com/tietoevry-infra-as-code/terraform-azurerm-mssql-db?ref=v1.0.0"
-
+  
 # Resource Group, VNet and Subnet declarations
   create_resource_group           = false
   resource_group_name             = "rg-demo-westeurope-01"
@@ -22,9 +22,7 @@ module "mssql-server" {
 
 # AD administrator for an Azure SQL server
   enable_sql_ad_admin             = true
-  ad_admin_login_name             = "hothead01"
-  ad_admin_tenant_id              = "2b25609c-e6e8-4f24-b7be-aa9fdef90a2d"
-  ad_admin_object_id              = "18821d6f-adbe-4d4d-97ca-71a56f70e392"  
+  ad_admin_login_name             = "firstname.lastname@tieto.com"
 
 # Firewall Rules to allow azure and external clients
   enable_firewall_rules           = true
@@ -33,8 +31,8 @@ module "mssql-server" {
                 start_ip_address  = "0.0.0.0"
                 end_ip_address    = "0.0.0.0"},
                 {name             = "desktop-ip"
-                start_ip_address  = "123.201.75.71"
-                end_ip_address    = "123.201.75.71"}]
+                start_ip_address  = "123.201.42.91"
+                end_ip_address    = "123.201.42.91"}]
 
 # Create and initialize a database with SQL script
   initialize_sql_script_execution = false
